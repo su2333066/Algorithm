@@ -1,8 +1,12 @@
-package 프로그래머스;
+package 프로그래머스.Level2;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Queue;
 
-public class Solution {
+public class 기능개발 {
 
 	public static void main(String[] args) {
 		System.out.println(Arrays.toString(solution(new int[] { 40, 20, 30, 20 }, new int[] { 1, 1, 1, 1 })));
