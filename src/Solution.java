@@ -3,10 +3,12 @@ import java.util.*;
 public class Solution {
 
 	public static void main(String[] args) {
-		System.out.println(solution(2, 10, new int[] { 7, 4, 5, 6 }));
+		System.out.println(solution(3, new int[][] { { 1, 1, 0 }, { 1, 1, 0 }, { 0, 0, 1 } }));
 	}
 
-	public static int solution(int bridge_length, int weight, int[] truck_weights) {
+	static int answer;
+
+	public static int solution(int n, int[][] computers) {
 		int answer = 0;
 		return answer;
 	}
