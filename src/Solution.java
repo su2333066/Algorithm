@@ -3,12 +3,10 @@ import java.util.*;
 public class Solution {
 
 	public static void main(String[] args) {
-		System.out.println(solution(3, new int[][] { { 1, 1, 0 }, { 1, 1, 0 }, { 0, 0, 1 } }));
+		System.out.println(solution(new int[] { 1, 2, 3, 9, 10, 12 }, 7));
 	}
 
-	static int answer;
-
-	public static int solution(int n, int[][] computers) {
+	public static int solution(int[] scoville, int K) {
 		int answer = 0;
 		return answer;
 	}
