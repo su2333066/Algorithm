@@ -1,6 +1,9 @@
-import java.util.*;
+package 프로그래머스.Level3;
 
-public class Solution {
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
+public class 디스크컨트롤러 {
 
 	public static void main(String[] args) {
 		System.out.println(solution(new int[][] { { 0, 3 }, { 1, 9 }, { 2, 6 } }));
