@@ -3,37 +3,90 @@ import java.util.*;
 public class Solution {
 
 	public static void main(String[] args) {
-		System.out.println(solution(new int[][] { { 0, 3 }, { 1, 9 }, { 2, 6 } }));
+		System.out.println(solution(120, new int[] { 1500, 300, 250, 359, 600 }, new int[][] { { 2, 0, 4, 0, -1 },
+				{ 0, 0, 3, 0, 0 }, { -1, -1, -1, 0, 0 }, { 0, 0, 5, 0, 0 }, { -1, 0, 0, -1, -1 } }));
 	}
 
-	public static int solution(int[][] jobs) {
+	public static int solution(int k, int[] limits, int[][] sockets) {
 
 		int answer = 0;
-		int time = 0;
-		int idx = 0;
-		int len = jobs.length;
+		List<int[]> list = new ArrayList<>();
+		int[] use = new int[sockets.length];
 
-		Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]);
-		PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+		for (int i = 0; i < sockets.length; i++) {
 
-		while (!pq.isEmpty() || idx < len) {
-
-			while (idx < len && jobs[idx][0] <= time) {
-				pq.offer(jobs[idx++]);
+			int[] temp = new int[6];
+			temp[0] = i + 1;
+			for (int j = 0; j < 5; j++) {
+				temp[j + 1] = sockets[i][j];
 			}
 
-			if (pq.isEmpty()) {
-				time = jobs[idx][0];
-			} else {
-				int[] job = pq.poll();
-				time += job[1];
-				answer += time - job[0];
+			list.add(temp);
+		}
+
+		Collections.sort(list, new Comparator<int[]>() {
+
+			@Override
+			public int compare(int[] o1, int[] o2) {
+
+				int connect1 = 0;
+				int connect2 = 0;
+				for (int i = 1; i <= 5; i++) {
+					if (o1[i] > 0) {
+						connect1++;
+					}
+				}
+				for (int i = 1; i <= 5; i++) {
+					if (o2[i] > 0) {
+						connect2++;
+					}
+				}
+
+				return connect1 == connect2 ? Integer.compare(o2[0], o1[0]) : Integer.compare(connect1, connect2);
+			}
+
+		});
+
+		for (int[] socket : list) {
+			int sum = 0;
+
+			for (int i = 1; i <= 5; i++) {
+				if (socket[i] > 0) {
+					sum += use[socket[i] - 1];
+				}
+				if (socket[i] == -1) {
+					sum += k;
+				}
+			}
+
+			use[socket[0] - 1] = sum;
+
+			while (true) {
+
+				if (limits[socket[0] - 1] >= use[socket[0] - 1])
+					break;
+
+				boolean flag = true;
+
+				for (int i = 1; i <= 5; i++) {
+					if (socket[i] == -1) {
+						use[socket[0] - 1] -= k;
+						socket[i] = 0;
+						answer++;
+						flag = false;
+						break;
+					}
+				}
+
+				if (flag) {
+					answer++;
+					use[socket[0] - 1] -= k;
+				}
 			}
 
 		}
 
-		return answer / len;
-
+		return answer;
 	}
 
 }
